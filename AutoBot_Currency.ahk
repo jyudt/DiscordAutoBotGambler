@@ -9,16 +9,17 @@ global sleepTime:= "750" ;in MS (seconds*1000)
 MsgBox, 3, AutoGambler, Press "Yes" for income loop and "No" for auto-slots
 IfMsgBox Yes
 	While true{
-		sleep 5000
 		doIncome()
 		sleep 1860000
 	}
-else
+else IfMsgBox No
 	While true{
 		doSlots()
 		sleep %sleepTime%
 	}
-	
+else{
+	ExitApp
+}
 
 doIncome(){
 	WinGet, winid ,, A
@@ -58,6 +59,6 @@ MouseGetPos, mx, my
 MsgBox % mx " " my
 return
 
-^e::
-exitapp ;Security measure, in case something dumb happens press Ctrl+e to quit the script
+#e::
+exitapp ;Security measure, in case something dumb happens press Win+e to quit the script
 return
