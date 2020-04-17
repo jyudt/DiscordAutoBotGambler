@@ -1,0 +1,63 @@
+#SingleInstance force
+#WinActivateForce
+global botName:= "+2y'shtola"+"+3"+"2487"
+global prefix:= "gb"
+global dungeon:="Border Woods"
+global bet:= "hundredth"
+global sleepTime:= "750" ;in MS (seconds*1000)
+
+MsgBox, 3, AutoGambler, Press "Yes" for income loop and "No" for auto-slots
+IfMsgBox Yes
+	While true{
+		sleep 5000
+		doIncome()
+		sleep 1860000
+	}
+else
+	While true{
+		doSlots()
+		sleep %sleepTime%
+	}
+	
+
+doIncome(){
+	WinGet, winid ,, A
+	MouseGetPos, mx, my
+	SetTitleMatchMode,2
+	if(!WinExist("Discord")){
+		MsgBox Discord not open.
+		return
+	}
+	WinActivate
+	MouseClick, Left, 175, 200, 1, 0
+	MouseClick, Left, 460, 1400, 1, 0
+	SendInput ^a {BackSpace}
+	SendInput %prefix% rob %botName% 800000 `n
+	SendInput %prefix% go %dungeon% `n
+	sleep 5
+	WinActivate ahk_id %winid%
+	MouseMove, mx, my, 0
+}
+
+doSlots(){
+	WinGet, winid ,, A
+	SetTitleMatchMode,2
+	if(!WinExist("Discord")){
+		MsgBox Discord not open.
+		return
+	}
+	WinActivate
+	MouseClick, Left, 175, 200, 1, 0
+	MouseClick, Left, 460, 1400, 1, 0
+	SendInput ^a {BackSpace}
+	SendInput %prefix% slots %bet% `n
+}
+
+^j::
+MouseGetPos, mx, my
+MsgBox % mx " " my
+return
+
+^e::
+exitapp ;Security measure, in case something dumb happens press Ctrl+e to quit the script
+return
